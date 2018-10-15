@@ -1,0 +1,14 @@
+.search-api-endpoint{
+    border: none;
+    background: none;
+    margin-bottom: 20px;
+}
+
+.search-quickPick{
+    margin: 0px 10px 10px 10px;
+}
+
+.form-control input{
+    border-radius: 20px;
+}
+

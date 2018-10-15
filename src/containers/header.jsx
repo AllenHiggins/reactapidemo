@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import {setSearchTitle, setApiEndPiont} from '../actions/searchActions'
 
 import {Navbar, Grid, Row, Col} from 'react-bootstrap'
-import Search from '../containers/search'
+import Search from '../components/search'
 
 class Header extends Component {
+
 
     searchForTile = (event) => {
         let userTitle = event.target.value
@@ -16,8 +17,8 @@ class Header extends Component {
         
     }
 
-    whichList = () => {
-        if(this.props.searchBar.apiEndPoint === 'Images'){
+    whichList = (endpiont) => {
+        if(endpiont === 'Images'){
             return this.props.searchBar.imageTypes
         }else{
             return this.props.searchBar.filmTypes
@@ -35,27 +36,29 @@ class Header extends Component {
     }
 
     render() {
+
+        const {apiEndPoint,title} = this.props.searchBar
+        const list = this.whichList(this.props.searchBar.apiEndPoint)
+
         return (
             <Grid fluid> 
                 <Row>
                     <Navbar>
                         <Navbar.Header>
-                            <Col xs={12} sm={4}>
+                            <Col xs={12}>
                                 <Navbar.Brand>
-                                    {this.props.searchBar.apiEndPoint} Search
+                                    <span style={{color: 'red'}}>{apiEndPoint}</span> Search
                                 </Navbar.Brand>
                             </Col>
                         </Navbar.Header>
-                            <Col xs={8}>
+                            <Col xs={12}>
                                 <Search 
                                     searchForTile={this.searchForTile}
                                     handleApiChoiceChange={this.handleApiChoiceChange}
-                                    endPiont={this.props.searchBar.apiEndPoint}
+                                    endPiont={apiEndPoint}
                                     handleQuickSearch={this.handleQuickSearch}
-                                    shortlist={this.whichList}
-                                    title={this.props.searchBar.title}
-                                    
-                                />
+                                    shortlist={list}
+                                    title={title}/>
                             </Col>
                     </Navbar>
                 </Row>
