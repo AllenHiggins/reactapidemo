@@ -1,0 +1,16 @@
+.imagelist{
+    display: block;
+    width: 70%;
+    margin: auto;
+    
+}
+
+.imagelist h3, .imagelist span{
+    font-size: 12px;
+}
+
+.imagelist img{
+    width: 150px;
+    height: 250px;
+    box-shadow: 1px 2px 1px lightgray;
+}

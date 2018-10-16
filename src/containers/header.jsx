@@ -1,20 +1,30 @@
 import React, {Component} from 'react'
 
 import { connect } from 'react-redux'
-import {setSearchTitle, setApiEndPiont} from '../actions/searchActions'
+import {
+    setSearchTitle, 
+    setApiEndPiont,  
+    searchGetImagesList,
+    searchSetImagesList
+}from '../actions/searchActions'
 
 import {Navbar, Grid, Row, Col} from 'react-bootstrap'
 import Search from '../components/search'
+import ImageList from './imageComponent/imageList'
 
 class Header extends Component {
 
 
     searchForTile = (event) => {
         let userTitle = event.target.value
-        this.props.setSearchTitle(userTitle)
-     
-        // pass to API
-        
+        console.log(userTitle)
+        if(userTitle === ''){
+            this.props.searchSetImagesList([])
+            this.props.setSearchTitle('')
+         }else{
+            this.props.setSearchTitle(userTitle)
+            this.props.searchGetImagesList(userTitle)
+        }
     }
 
     whichList = (endpiont) => {
@@ -37,7 +47,7 @@ class Header extends Component {
 
     render() {
 
-        const {apiEndPoint,title} = this.props.searchBar
+        const {apiEndPoint,title, images} = this.props.searchBar
         const list = this.whichList(this.props.searchBar.apiEndPoint)
 
         return (
@@ -62,7 +72,12 @@ class Header extends Component {
                             </Col>
                     </Navbar>
                 </Row>
+                <Row>
+                    {apiEndPoint === 'Images' ? <ImageList images={images}/>: null}
+                    
+                </Row>   
             </Grid>
+            
         )
     }
 }
@@ -80,6 +95,12 @@ const mapDispatchToProps = (dispatch) =>{
         },
         setApiEndPiont: (choice) => {
             dispatch(setApiEndPiont(choice))
+        },
+        searchGetImagesList: (userInput) => {
+            dispatch(searchGetImagesList(userInput))
+          },
+        searchSetImagesList: (val) => {
+            dispatch(searchSetImagesList(val))
         }
     }
 }

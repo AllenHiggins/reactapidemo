@@ -1,6 +1,8 @@
 export const searchReducer = (state = {
     title:'',
     apiEndPoint: 'Images',
+    images: [],
+    films: [],
     imageTypes: [
         'Natuarl',
         'Life',
@@ -28,6 +30,16 @@ export const searchReducer = (state = {
             return {
                 ...state,
                 apiEndPoint: action.payload
+            }
+        case 'SEARCH_IMAGES_LIST':
+            return{
+                ...state,
+                images: action.payload
+            }
+        case 'SEARCH_SET_IMAGELIST':
+            return {
+                ...state,
+                images: action.payload
             }
         default:
             return state
