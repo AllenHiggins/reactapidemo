@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from './containers/headerComponent/header'
+import Main from './containers/mainComponent/Main'
 
 const App = () => {
     return (
       <div className="App">
-        <Header></Header>
+        <Main></Main>
       </div>
     )
 }

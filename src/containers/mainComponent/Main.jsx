@@ -13,7 +13,7 @@ import Search from '../../components/searchComponent/search'
 import ImageList from '../../components/imageComponent/imageList'
 import Films from '../../components/filmComponent/films'
 
-class Header extends Component {
+class Main extends Component {
 
 
     searchForTile = (event) => {
@@ -77,9 +77,9 @@ class Header extends Component {
                 </Row>
                 <Row>
                     {
-                        apiEndPoint === 'Images' 
+                        apiEndPoint === 'Images'
                         ? 
-                            <ImageList images={images}/>
+                           <ImageList images={images}/>
                         : 
                             <Films
                                 filmTitle={title}
@@ -114,4 +114,4 @@ const mapDispatchToProps = (dispatch) =>{
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(Header)
+export default connect(mapStateToProps, mapDispatchToProps)(Main)
