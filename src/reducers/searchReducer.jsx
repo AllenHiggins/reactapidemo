@@ -4,7 +4,7 @@ export const searchReducer = (state = {
     images: [],
     films: [],
     imageTypes: [
-        'Natuarl',
+        'Pets',
         'Life',
         'Cute',
         'Happy',
@@ -36,10 +36,10 @@ export const searchReducer = (state = {
                 ...state,
                 images: action.payload
             }
-        case 'SEARCH_SET_IMAGELIST':
+        case 'SEARCH_FILM_LIST':
             return {
                 ...state,
-                images: action.payload
+                films: action.payload
             }
         default:
             return state

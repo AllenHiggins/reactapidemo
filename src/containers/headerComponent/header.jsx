@@ -5,26 +5,30 @@ import {
     setSearchTitle, 
     setApiEndPiont,  
     searchGetImagesList,
-    searchSetImagesList
-}from '../actions/searchActions'
+    filmGetListByTitle
+}from '../../actions/searchActions'
 
 import {Navbar, Grid, Row, Col} from 'react-bootstrap'
-import Search from '../components/search'
-import ImageList from './imageComponent/imageList'
+import Search from '../../components/searchComponent/search'
+import ImageList from '../../components/imageComponent/imageList'
+import Films from '../../components/filmComponent/films'
 
 class Header extends Component {
 
 
     searchForTile = (event) => {
+        
         let userTitle = event.target.value
-        console.log(userTitle)
-        if(userTitle === ''){
-            this.props.searchSetImagesList([])
-            this.props.setSearchTitle('')
-         }else{
-            this.props.setSearchTitle(userTitle)
+       
+        this.props.setSearchTitle(userTitle)
+        
+        //API Call
+        if(this.props.searchBar.apiEndPoint === 'Images'){
             this.props.searchGetImagesList(userTitle)
+        }else{
+            this.props.searchFilmList(userTitle)
         }
+
     }
 
     whichList = (endpiont) => {
@@ -47,7 +51,7 @@ class Header extends Component {
 
     render() {
 
-        const {apiEndPoint,title, images} = this.props.searchBar
+        const {apiEndPoint,title,images,films} = this.props.searchBar
         const list = this.whichList(this.props.searchBar.apiEndPoint)
 
         return (
@@ -65,7 +69,6 @@ class Header extends Component {
                                 <Search 
                                     searchForTile={this.searchForTile}
                                     handleApiChoiceChange={this.handleApiChoiceChange}
-                                    endPiont={apiEndPoint}
                                     handleQuickSearch={this.handleQuickSearch}
                                     shortlist={list}
                                     title={title}/>
@@ -73,8 +76,15 @@ class Header extends Component {
                     </Navbar>
                 </Row>
                 <Row>
-                    {apiEndPoint === 'Images' ? <ImageList images={images}/>: null}
-                    
+                    {
+                        apiEndPoint === 'Images' 
+                        ? 
+                            <ImageList images={images}/>
+                        : 
+                            <Films
+                                filmTitle={title}
+                                filmlist={films}/>
+                    }       
                 </Row>   
             </Grid>
             
@@ -96,11 +106,11 @@ const mapDispatchToProps = (dispatch) =>{
         setApiEndPiont: (choice) => {
             dispatch(setApiEndPiont(choice))
         },
-        searchGetImagesList: (userInput) => {
-            dispatch(searchGetImagesList(userInput))
+        searchGetImagesList: (title) => {
+            dispatch(searchGetImagesList(title))
           },
-        searchSetImagesList: (val) => {
-            dispatch(searchSetImagesList(val))
+        searchFilmList: (title) => {
+            dispatch(filmGetListByTitle(title))
         }
     }
 }

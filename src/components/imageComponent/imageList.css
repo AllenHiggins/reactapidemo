@@ -12,5 +12,5 @@
 .imagelist img{
     width: 150px;
     height: 250px;
-    box-shadow: 1px 2px 1px lightgray;
+    box-shadow: 1px 2px 1px gray;
 }
